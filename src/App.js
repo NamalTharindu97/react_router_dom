@@ -5,6 +5,7 @@ import { BookList } from "./pages/BookList";
 import { Contacts } from "./pages/Contacts";
 import { Books } from "./Components/Books";
 import { NotFound } from "./Components/NotFound";
+import { BookLayout } from "./BookLayout";
 
 function App() {
   return (
@@ -16,10 +17,7 @@ function App() {
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/Books/:id">Book</Link>
-            </li>
-            <li>
-              <Link to="/Books">BookList</Link>
+              <Link to="/Books">Book</Link>
             </li>
             <li>
               <Link to="/About">About</Link>
@@ -30,9 +28,12 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/About" element={<About />} />
-          <Route path="/Books" element={<BookList />} />
           <Route path="/Contacts" element={<Contacts />} />
-          <Route path="/Books/:id" element={<Books />} />
+          {/* nested routing */}
+          <Route path="/Books" element={<BookLayout />}>
+            <Route index element={<BookList />} />
+            <Route path=":id" element={<Books />} />
+          </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
       </>
