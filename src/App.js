@@ -1,4 +1,4 @@
-import { Link, Route, Routes } from "react-router-dom";
+import { Link, useRoutes } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { About } from "./pages/About";
 import { Contacts } from "./pages/Contacts";
@@ -6,6 +6,29 @@ import { NotFound } from "./Components/NotFound";
 import { BookRoutes } from "./BookRoutes";
 
 function App() {
+  // useRoutes Hook
+  let element = useRoutes([
+    {
+      path: "/",
+      element: <Home />,
+    },
+    {
+      path: "/Books/*",
+      element: <BookRoutes />,
+    },
+    {
+      path: "*",
+      element: <NotFound />,
+    },
+    {
+      path: "/About",
+      element: <About />,
+    },
+    {
+      path: "/Contacts",
+      element: <Contacts />,
+    },
+  ]);
   return (
     <div className="App">
       <>
@@ -22,16 +45,7 @@ function App() {
             </li>
           </ul>
         </nav>
-
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/About" element={<About />} />
-          <Route path="/Contacts" element={<Contacts />} />
-          {/* nested routing */}
-          {/* need * mark for route enything */}
-          <Route path="/Books/*" element={<BookRoutes />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        {element} {/* use here useRoutes Hook constant */}
       </>
     </div>
   );
